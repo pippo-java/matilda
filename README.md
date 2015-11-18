@@ -28,9 +28,9 @@ This application is a web accounting application where the customers upload invo
 accountant processes these invoices and upload the balance sheet.
 The customer has a company and he can not upload documents (PDF files) after day 20 of each month without the accept of the accountant. Also he can not upload documents in system if he forgot to pay on the previous month.
 
-The application comes with two sections: Customer and Admin (Accountant). Each section comes with a separate authentication mechanism. The authentication mechanism for Customer is reinforced with Google reCAPCTCHA and the authentication mechanism for Admin is reinforced with an IP White List.
+The application comes with two sections: __Customer__ and __Admin__ (Accountant). Each section comes with a separate authentication mechanism. The authentication mechanism for Customer is reinforced with Google reCAPCTCHA and the authentication mechanism for Admin is reinforced with an IP White List.
 
-The application comes with support for English and Romanian languages.
+The application comes with support for `English` and `Romanian` languages.
 
 Screenshots
 -------------------
@@ -50,13 +50,13 @@ How to build
 -------------------
 Requirements:
 - [Git](http://git-scm.com/)
-- JDK 7 (test with `java -version`)
+- JDK 8 (test with `java -version`)
 - [Apache Maven 3](http://maven.apache.org/) (test with `mvn -version`)
 
 Steps:
 - create a local clone of this repository (with `git clone https://github.com/decebals/matilda.git`)
 - go to project's folder (with `cd matilda`)
-- build the artifacts (with `mvn clean package` or `mvn clean install`)
+- build the artifacts (with `mvn clean package`)
 
 After above steps a folder _matilda/target_ is created and all goodies are in that folder.
 
