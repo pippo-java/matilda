@@ -1,0 +1,20 @@
+{% extends "admin/base" %}
+
+{% block content %}
+    {# Menu/Navbar #}
+    {% include "admin/views/menu" %}
+
+    {# Flash messages #}
+    {% include "common/views/flash" %}
+
+    {% block main %}Content here{% endblock %}
+{% endblock %}
+
+{% block bodyJs %}
+    {{ parent() }}
+    <script src="{{ webjarsAt('intercooler-js/0.4.10/src/intercooler.js') }}"></script>
+    <script>
+        $('ul.nav.navbar-nav').find('a[href="' + location.pathname + '"]').closest('li').addClass('active');
+    </script>
+{% endblock %}
+

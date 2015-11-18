@@ -1,0 +1,27 @@
+<div class="filter">
+    <form class="form-inline">
+        <div class="form-group {% if companyId is null %}has-error{% endif %}">
+            <label for="companyId">{{ i18n('company') }}</label>
+            <div class="input-group">
+                <select class="form-control" name="companyId" id="companyId" autofocus>
+                    {% if companyId is null %}
+                        <option value></option>
+                    {% endif %}
+                    {% for company in companies %}
+                        <option {% if companyId == company.id %}selected{% endif %} value={{ company.id }}>{{ company.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date">{{ i18n('date') }}</label>
+            <div class="input-group date">
+                <input class="form-control datepicker" name="date" data-provide="datepicker" placeholder="ll-aaaa" value={{ date }}>
+                <!--
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                -->
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">{{ i18n('select') }}</button>
+    </form>
+</div>

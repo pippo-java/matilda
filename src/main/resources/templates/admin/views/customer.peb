@@ -1,0 +1,60 @@
+<form data-toggle="validator" class="form-horizontal" role="form" method="post" action="{{ saveUrl }}">
+    <div class="form-group">
+        <label for="lastName" class="col-sm-2 control-label">{{ i18n('name') }}</label>
+        <div class="col-sm-9">
+            <input class="form-control" id="lastName" name="lastName" required value="{{ customer.lastName }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="firstName" class="col-sm-2 control-label">{{ i18n('firstName') }}</label>
+        <div class="col-sm-9">
+            <input class="form-control" id="firstName" name="firstName" required value="{{ customer.firstName }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="emailAddress" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-9">
+            <input type ="email" class="form-control" id="emailAddress" name="emailAddress" required data-error="Adresa de email invalida" value="{{ customer.emailAddress }}">
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="companyId" class="col-sm-2 control-label">{{ i18n('company') }}</label>
+        <div class="col-sm-9">
+            <select class="form-control" name="companyId" id="companyId" required>
+                {% if customer.companyId is null %}
+                    <option value></option>
+                {% endif %}
+                {% for company in companies %}
+                    <option {% if customer.companyId == company.id %}selected{% endif %} value={{ company.id }}>{{ company.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="debtor" class="col-sm-2 control-label">{{ i18n('debtor') }}</label>
+        <div class="col-sm-9">
+            <input type="checkbox" class="checkbox" id="debtor" name="debtor" {% if customer.debtor %}checked{% endif %}>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="uploadAnytime" class="col-sm-2 control-label">{{ i18n('uploadAnytime') }}</label>
+        <div class="col-sm-9">
+            <input type="checkbox" class="checkbox" id="uploadAnytime" name="uploadAnytime" {% if customer.uploadAnytime %}checked{% endif %}>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">{{ i18n('password') }}</label>
+        <div class="col-sm-9">
+            <input class="form-control" id="password" name="password" required value="{{ customer.password }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-9">
+            <input type="hidden" name="_csrf_token" value="{{ csrfToken }}">
+            <button type="submit" class="btn btn-default btn-primary">{{ i18n('save') }}</button>
+            <a class="btn" href="{{ backUrl }}">{{ i18n('cancel') }}</a>
+        </div>
+    </div>
+</form>

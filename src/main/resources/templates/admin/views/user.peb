@@ -1,0 +1,28 @@
+<form data-toggle="validator" class="form-horizontal" role="form" method="post" action="{{ saveUrl }}">
+    <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">Cont</label>
+        <div class="col-sm-9">
+            <input class="form-control" id="username" name="username" required value="{{ user.username }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="displayName" class="col-sm-2 control-label">Nume</label>
+        <div class="col-sm-9">
+            <input class="form-control" id="displayName" name="displayName" required value="{{ user.displayName }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">Parola</label>
+        <div class="col-sm-9">
+            <input class="form-control" id="password" name="password" required value="{{ user.password }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-9">
+            <input type="hidden" name="_csrf_token" value="{{ csrfToken }}">
+            <button type="submit" class="btn btn-default btn-primary">Salveaza</button>
+            <a class="btn" href="{{ backUrl }}">Anuleaza</a>
+        </div>
+    </div>
+</form>

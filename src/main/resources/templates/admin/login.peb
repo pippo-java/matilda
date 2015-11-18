@@ -1,0 +1,48 @@
+{% extends "admin/base" %}
+
+{% block headTitle %}Login{% endblock %}
+
+{% block content %}
+    <div class="row" style="margin-top: 120px">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="logo text-danger">
+                <h1 class="text-center">{{ i18n('login.logo') }}</h1>
+            </div>
+
+            {# Flash messages #}
+            {% include "common/views/flash" %}
+
+            <div class="panel panel-default">
+                {#
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <!--
+                        <span><i class="fa fa-paw" style="color: brown;"></i>&nbspAutentificare</span>
+                        -->
+                        Autentificare (Admin)
+                    </h3>
+                </div>
+                #}
+                <div class="panel-body">
+                    <form accept-charset="UTF-8" role="form" method="post" action="{{ appPath }}/admin/login">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <input class="form-control" placeholder="Utilizator" name="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    <input class="form-control" placeholder="Parola" name="password" type="password">
+                                </div>
+                            </div>
+                            <input class="btn btn-success btn-block" type="submit" name="login" value="Login">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

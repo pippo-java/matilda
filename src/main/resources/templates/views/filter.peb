@@ -1,0 +1,26 @@
+<div class="filter">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="company">{{ i18n('company') }}</label>
+            <div class="input-group">
+                <input class="form-control" id="company" name="company" readonly value="{{ company.name }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date">{{ i18n('date') }}</label>
+            <div class="input-group date">
+                {% if lockDate is null %}
+                    <input class="form-control datepicker" name="date" data-provide="datepicker" placeholder="ll-aaaa" value="{{ date }}">
+                    <!--
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    -->
+                {% else %}
+                    <input class="form-control" id="date" name="date" readonly value="{{ date }}">
+                {% endif %}
+            </div>
+        </div>
+        {% if lockDate is null %}
+            <button type="submit" class="btn btn-success">{{ i18n('select') }}</button>
+        {% endif %}
+    </form>
+</div>

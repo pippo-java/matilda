@@ -1,0 +1,62 @@
+{% extends "admin/main" %}
+
+{% block headTitle %}Incarca{% endblock %}
+
+{% block headCss %}
+    <link href="{{ webjarsAt('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ webjarsAt('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ webjarsAt('bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet">
+    <link href="{{ webjarsAt('bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ publicAt('css/admin.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    {# Filter #}
+    {% include "admin/views/filter" %}
+
+    {% if companyId is not null %}
+        <form role="form" method="post" enctype="multipart/form-data" action="{{ appPath }}/admin/upload">
+            <input id="upload" type="file" name="files" multiple="true" class="file-loading">
+        </form>
+
+        {% if documents is not empty %}
+            <div class="documents-head">Documente incarcate: <strong>{{ documents.size }}</strong></div>
+
+            {# Documents #}
+            {% include "common/views/documents" %}
+        {% elseif companyId is not null %}
+            <div class="alert alert-warning" style="margin-top: 10px;" role="alert">{{ i18n('upload.noDocuments', company.name, date) }}</div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block bodyJs %}
+    {{ parent() }}
+    <script src="{{ webjarsAt('bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+    <script src="{{ webjarsAt('bootstrap-fileinput/js/fileinput_locale_ro.js') }}"></script>
+    <script src="{{ webjarsAt('bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ webjarsAt('bootstrap-datepicker/locales/bootstrap-datepicker.ro.min.js') }}"></script>
+    <script>
+        $("#upload").fileinput({
+            uploadClass: 'btn btn-success',
+            uploadUrl: '/admin/upload',
+            uploadAsync: true,
+            allowedFileExtensions: ['pdf'],
+            allowedPreviewMimeTypes: 'application/pdf',
+            showPreview: true
+        });
+
+        $("#upload").on('filebatchuploadcomplete', function(event, files, extra) {
+            setTimeout(function() { location.reload(); }, 1000);
+        })
+    </script>
+    <script>
+        $(".datepicker").datepicker({
+            format: "mm-yyyy",
+            startView: "year",
+            minViewMode: "months",
+            orientation: "auto top",
+            language: "ro"
+        });
+    </script>
+{% endblock %}

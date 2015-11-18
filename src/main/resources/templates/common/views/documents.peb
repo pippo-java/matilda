@@ -1,0 +1,42 @@
+{#
+<span>Documente <strong>{{ company.getName }}</strong> {{ date }}</span>
+#}
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            {#
+            <th>#</th>
+            #}
+            <th>Id</th>
+            <th>{{ i18n('name') }}</th>
+            <th>{{ i18n('size') }}</th>
+            <th>{{ i18n('uploadDate') }}</th>
+            {#
+            <th>Tip</th>
+            #}
+        </tr>
+    </thead>
+    <tbody>
+        {% for document in documents %}
+            <tr>
+                {#
+                <td>{{ loop.index + 1 }}</td>
+                #}
+                <td>{{ document.id }}</td>
+                <td>{{ document.name }}</td>
+                <td>{{ document.size | fileSize }}</td>
+                {#
+                <td>{{ document.uploadedDate | formatTime('dd-MM-yyyy HH:mm') }}</td>
+                #}
+                <td>{{ document.uploadedDate | prettyTime }}</td>
+                {#
+                {% if document.type == "in" %}
+                    <td><i class="fa fa-arrow-down" style="color: #7EB1DC;"></i></td>
+                {% else %}
+                    <td><i class="fa fa-arrow-up" style="color: #79CD79;"></i></td>
+                {% endif %}
+                #}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

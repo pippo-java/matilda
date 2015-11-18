@@ -1,0 +1,53 @@
+{% extends "main" %}
+
+{% block headTitle %}{{ i18n('upload') }}{% endblock %}
+
+{% block headCss %}
+    <link href="{{ webjarsAt('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ webjarsAt('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ webjarsAt('bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet">
+    <link href="{{ webjarsAt('bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ publicAt('css/app.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    {% if (dayOfMonth > 20) and (customer.uploadAnytime != true) %}
+        <div class="alert alert-danger" role="alert">{{ i18n('upload.outOfInterval') }}</div>
+    {% else %}
+        {# Filter #}
+        {% include "views/filter" %}
+
+        <form role="form" method="post" enctype="multipart/form-data" action="{{ appPath }}/upload">
+            <input id="upload" type="file" name="files" multiple="true" class="file-loading">
+        </form>
+    {% endif %}
+
+    {% if documents is not empty %}
+        <div class="documents-head">{{ i18n('documents.head', documents.size) }}</div>
+
+        {# Documents #}
+        {% include "common/views/documents" %}
+    {% elseif companyId is not null %}
+        <div class="alert alert-warning" style="margin-top: 10px;" role="alert">{{ i18n('upload.noDocuments', company.name, date) }}</div>
+    {% endif %}
+{% endblock %}
+
+{% block bodyJs %}
+    {{ parent() }}
+    <script src="{{ webjarsAt('bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+    <script src="{{ webjarsAt('bootstrap-fileinput/js/fileinput_locale_ro.js') }}"></script>
+    <script>
+        $("#upload").fileinput({
+            uploadClass: 'btn btn-success',
+            uploadUrl: '/upload',
+            uploadAsync: true,
+            allowedFileExtensions: ['pdf'],
+            allowedPreviewMimeTypes: 'application/pdf',
+            showPreview: true
+        });
+
+        $("#upload").on('filebatchuploadcomplete', function(event, files, extra) {
+            setTimeout(function() { location.reload(); }, 1000);
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "admin/main" %}
+
+{% block headTitle %}Firma{% endblock %}
+
+{% block main %}
+    <div class="page-header">
+        {% if company.id is not null %}
+            <h4>{{ i18n('edit.company') }} <strong>#{{ company.id }}</strong></h4>
+        {% else %}
+            <h4>{{ i18n('add.company') }}</h4>
+        {% endif %}
+    </div>
+
+    {% include "admin/views/company" %}
+{% endblock %}
+
+{% block bodyJs %}
+    {{ parent() }}
+    <script src="{{ webjarsAt('bootstrap-validator/dist/validator.min.js') }}"></script>
+{% endblock %}
+

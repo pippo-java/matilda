@@ -1,0 +1,31 @@
+.buttons {
+    margin-bottom: 10px;
+}
+
+.filter {
+    margin-bottom: 10px;
+    /*
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EEE;
+    */
+}
+
+/*
+.filter .form-inline {
+    text-align: center;
+}
+*/
+
+.filter .form-group {
+    margin-right: 10px;
+}
+
+.page-header {
+    margin-top: 20px;
+}
+
+.documents-head {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #EEE;
+}

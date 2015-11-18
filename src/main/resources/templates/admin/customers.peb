@@ -1,0 +1,51 @@
+{% extends "admin/main" %}
+
+{% block headTitle %}{{ i18n('customers') }}{% endblock %}
+
+{% block main %}
+    <div class="buttons pull-right">
+        <a class="btn btn-primary" href="{{ appPath }}/admin/customer/0"><i class="fa fa-plus"></i> {{ i18n('add') }}</a>
+    </div>
+
+    {# Customers #}
+    <div id="customers-list">
+        <div class="input-group">
+            <input type="search" class="search form-control input-normal" placeholder="{{ i18n('search') }}" autofocus>
+        </div>
+        {#
+        <button class="sort" data-sort="name">Sorteaza dupa nume</button>
+        #}
+
+        {% include "admin/views/customers" %}
+    <div>
+{% endblock %}
+
+{% block bodyJs %}
+    {{ parent() }}
+    <script src="{{ webjarsAt('listjs/list.min.js') }}"></script>
+    <script>
+        var options = {
+            valueNames: [ 'id', 'lastName', 'firstName', 'companyName' ]
+        };
+
+        var customersList = new List('customers-list', options);
+    </script>
+    <script src="{{ webjarsAt('bootstrap3-dialog/dist/js/bootstrap-dialog.min.js') }}"></script>
+    <script>
+        $(".delete-row-link").click(function() {
+            var link = $(this);
+            BootstrapDialog.confirm({
+                title: '{{ i18n('delete.confirm') }}',
+                message: '{{ i18n('delete.message') }}',
+                btnCancelLabel: "{{ i18n('cancel') }}",
+                btnOKLabel: "{{ i18n('confirm') }}",
+                callback: function(result) {
+                    if (result) {
+                        link.trigger("deleteRowConfirm");
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+

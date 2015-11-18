@@ -1,0 +1,10 @@
+{% extends "base" %}
+
+{% block headTitle %}{{ i18n('debtor') }}{% endblock %}
+
+{% block content %}
+    <div style="margin-top: 20px;">
+        <div>{{ i18n('customer.hello', customer.name) }}</div>
+        <div class="alert alert-danger" role="alert">{{ i18n('debtor.pay') }}</div>
+    </div>
+{% endblock %}
