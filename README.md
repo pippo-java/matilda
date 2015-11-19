@@ -5,7 +5,7 @@ Web Accounting - Pippo Demo
 This project is a demo application build with [Pippo](www.pippo.ro) framework.
 The goal of this project is to show how looks a real web application build with Pippo.
 
-before studying this project please read about Pippo on www.pippo.ro and see the multiple Pippo-Demo projects (fine granularity) on https://github.com/decebals/pippo-demo.
+Before studying this project please read about Pippo on www.pippo.ro and see the multiple Pippo-Demo projects (fine granularity) on https://github.com/decebals/pippo-demo.
 
 Libraries used
 -------------------
@@ -34,7 +34,7 @@ The application comes with support for `English` and `Romanian` languages.
 
 Screenshots
 -------------------
-Some screenshots are available in the `screenshots` folder.
+Some screenshots are available in the [screenshots](screenshots) folder.
 
 How to run
 -------------------
