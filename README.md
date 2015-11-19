@@ -2,14 +2,14 @@ Web Accounting - Pippo Demo
 =====================
 [![Travis CI Build Status](https://travis-ci.org/decebals/matilda.png)](https://travis-ci.org/decebals/matilda)
 
-This project is a demo application build with [Pippo](www.pippo.ro) framework.
-The goal of this project is to show how looks a real web application build with Pippo.
+This project is a real life application built with [Pippo](www.pippo.ro) framework.
+The goal of this project is to show how a real web application built with Pippo looks like.
 
 Before studying this project please read about Pippo on www.pippo.ro and see the multiple Pippo-Demo projects (fine granularity) on https://github.com/decebals/pippo-demo.
 
 Libraries used
 -------------------
-This project is build using several libraries:
+This project is built using several libraries:
 - [Pippo](https://github.com/decebals/pippo), a micro Java web framework
 - [Dada](https://github.com/decebals/dada), a tiny generic dao in Java used to access data stored in a H2 database
 - [Pebble](https://github.com/mbosecke/pebble), a Java templating engine
@@ -25,10 +25,10 @@ This project is build using several libraries:
 About business
 -------------------
 This application is a web accounting application where the customers upload invoices and the 
-accountant processes these invoices and upload the balance sheet.
-The customer has a company and he can not upload documents (PDF files) after day 20 of each month without the accept of the accountant. Also he can not upload documents in system if he forgot to pay on the previous month.
+accountant processes these invoices and uploads the balance sheet.
+The customer has a company and he can not upload documents (PDF files) after day 20 of each month without the accept of the accountant. Also he can not upload documents in system if he forgot to pay the previous month.
 
-The application comes with two sections: __Customer__ and __Admin__ (Accountant). Each section comes with a separate authentication mechanism. The authentication mechanism for Customer is reinforced with Google reCAPCTCHA and the authentication mechanism for Admin is reinforced with an IP White List.
+The application comes with two sections: __Customer__ and __Admin__ (Accountant). Each section has a separate authentication mechanism. The authentication mechanism for Customer is reinforced with `Google reCAPCTCHA` and the authentication mechanism for Admin is reinforced with an `IP White List`.
 
 The application comes with support for `English` and `Romanian` languages.
 
