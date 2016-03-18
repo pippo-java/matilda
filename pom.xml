@@ -37,7 +37,7 @@
 
         <main.class>ro.fortsoft.matilda.PippoLauncher</main.class>
 
-        <pippo.version>0.7.0</pippo.version>
+        <pippo.version>0.9.0-SNAPSHOT</pippo.version>
         <dada.version>0.1.0</dada.version>
         <slf4j.version>1.7.7</slf4j.version>
         <junit.version>4.12</junit.version>
@@ -116,6 +116,10 @@
                     <groupId>org.webjars.bower</groupId>
                     <artifactId>bootstrap</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>jquery</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -140,6 +144,10 @@
                     <groupId>org.webjars.bower</groupId>
                     <artifactId>bootstrap</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>jquery</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -153,6 +161,12 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>bootstrap-validator</artifactId>
             <version>0.9.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>jquery</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Test -->
