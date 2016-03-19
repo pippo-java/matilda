@@ -27,9 +27,9 @@
                 #}
                 <td style="text-align: right;">
                     <div class="btn-group btn-group-xs">
-                        <a class="btn btn-default" href="{{ appPath }}/admin/company/{{ company.id }}"><i class="fa fa-pencil"></i> {{ i18n('edit') }}</a>
+                        <a class="btn btn-default" href="{{ appPath }}/admin/companies/{{ company.id }}"><i class="fa fa-pencil"></i> {{ i18n('edit') }}</a>
                         {#
-                        <a class="btn btn-default delete-row-link" ic-delete-from="{{ appPath }}/admin/company/{{ company.id }}" ic-target="closest tr" ic-trigger-on="deleteRowConfirm"><i class="fa fa-trash"></i> {{ i18n('delete') }}</a>
+                        <a class="btn btn-default delete-row-link" ic-delete-from="{{ appPath }}/admin/companies/{{ company.id }}" ic-target="closest tr" ic-trigger-on="deleteRowConfirm"><i class="fa fa-trash"></i> {{ i18n('delete') }}</a>
                         #}
                     </div>
                 </td>

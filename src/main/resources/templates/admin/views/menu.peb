@@ -25,7 +25,7 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="/admin/user/1">{{ i18n('profile') }}</a></li>
+                    <li><a href="/admin/users/1">{{ i18n('profile') }}</a></li>
                     <li class="divider"></li>
                     <li><a href="/admin/logout">Logout</a></li>
                 </ul>

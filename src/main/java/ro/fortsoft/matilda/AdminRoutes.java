@@ -59,14 +59,12 @@ public class AdminRoutes extends RouteGroup {
 
         GET("/", new RedirectHandler("/admin/storage"));
 
-        addRoutes();
-    }
-
-    private void addRoutes() {
+        // BEFORE FILTERS
         addBeforeFilters();
 
+        // ROUTES
         addSecurityRoutes();
-        addCustomersRoutes();
+        addCustomerRoutes();
         addCompanyRoutes();
         addUserRoutes();
         addUploadRoutes();
@@ -136,130 +134,19 @@ public class AdminRoutes extends RouteGroup {
         }).named("adminLogout");
     }
 
-    private void addCustomersRoutes() {
-        GET("/customers", (routeContext) -> {
-//            routeContext.setLocal("companyService", companyService); // bug in pebble
-            // workaround bug
-            List<CustomerDto> customers = new ArrayList<>();
-            for (Customer customer : application.getCustomerService().findAll()) {
-                Company company = application.getCompanyService().findById(customer.getCompanyId());
-                customers.add(new CustomerDto(customer, company));
-            }
-            routeContext.setLocal("customers", customers);
-            routeContext.render("admin/customers");
-        }).named("getCustomers");
-
-        GET("/customer/{id}", (routeContext) -> {
-            long id = routeContext.getParameter("id").toLong();
-            Customer customer;
-            if (id > 0) {
-                customer = application.getCustomerService().findById(id);
-            } else {
-                customer = new Customer();
-            }
-            routeContext.setLocal(PippoApplication.CUSTOMER, customer);
-
-            Map<String, Object> parameters = new HashMap<>();
-            if (id > 0) {
-                parameters.put("id", id);
-            }
-            Router router = application.getRouter();
-            routeContext.setLocal("saveUrl", router.uriFor("postCustomer", parameters));
-            routeContext.setLocal("backUrl", router.uriFor("getCustomers", new HashMap<>()));
-            routeContext.setLocal("companies", application.getCompanyService().findAll());
-
-            routeContext.render("admin/customer");
-        });
-
-        POST("/customer", (routeContext) -> {
-            Customer entity = routeContext.createEntityFromParameters(Customer.class);
-            if (entity.getCreatedDate() == null) {
-                entity.setCreatedDate(new Date());
-            }
-            application.getCustomerService().save(entity);
-
-            routeContext.getResponse().header("X-IC-Transition", "none");
-//            routeContext.setLocal("customers", customerService.findAll());
-            // workaround bug
-            List<CustomerDto> customers = new ArrayList<>();
-            for (Customer customer : application.getCustomerService().findAll()) {
-                Company company = application.getCompanyService().findById(customer.getCompanyId());
-                customers.add(new CustomerDto(customer, company));
-            }
-            routeContext.setLocal("customers", customers);
-
-            routeContext.redirect("getCustomers", new HashMap<>());
-        }).named("postCustomer");
-
-        DELETE("/customer/{id}", (routeContext) -> {
-            long id = routeContext.getParameter("id").toLong();
-            application.getCustomerService().deleteById(id);
-
-            routeContext.getResponse().header("X-IC-Remove", "true").commit();
-        });
+    private void addCustomerRoutes() {
+        // TODO (or a simple "addRouteGroup()")
+        application.addRouteGroup(new CustomerRoutes());
     }
 
     private void addCompanyRoutes() {
-        GET("/companies", (routeContext) -> {
-            routeContext.setLocal("companies", application.getCompanyService().findAll());
-            routeContext.render("admin/companies");
-        }).named("getCompanies");
-
-        GET("/company/{id}", (routeContext) -> {
-            long id = routeContext.getParameter("id").toLong();
-            Company company = (id > 0) ? application.getCompanyService().findById(id) : new Company();
-            routeContext.setLocal(PippoApplication.COMPANY, company);
-
-            Map<String, Object> parameters = new HashMap<>();
-            if (id > 0) {
-                parameters.put("id", id);
-            }
-            Router router = application.getRouter();
-            routeContext.setLocal("saveUrl", router.uriFor("postCompany", parameters));
-            routeContext.setLocal("backUrl", router.uriFor("getCompanies", new HashMap<>()));
-
-            routeContext.render("admin/company");
-        });
-
-        POST("/company", (routeContext) -> {
-            Company entity = routeContext.createEntityFromParameters(Company.class);
-            if (entity.getCreatedDate() == null) {
-                entity.setCreatedDate(new Date());
-            }
-            application.getCompanyService().save(entity);
-
-            routeContext.redirect("getCompanies", new HashMap<>());
-        }).named("postCompany");
+        // TODO (or a simple "addRouteGroup()")
+        application.addRouteGroup(new CompanyRoutes());
     }
 
     private void addUserRoutes() {
-        GET("/user/{id}", (routeContext) -> {
-            long id = routeContext.getParameter("id").toLong();
-            User user = (id > 0) ? application.getUserService().findById(id) : new User();
-            routeContext.setLocal(PippoApplication.USER, user);
-
-            Map<String, Object> parameters = new HashMap<>();
-            if (id > 0) {
-                parameters.put("id", id);
-            }
-            routeContext.setLocal("saveUrl", application.getRouter().uriFor("postUser", parameters));
-            routeContext.setLocal("backUrl", "/admin");
-
-            routeContext.render("admin/user");
-        });
-
-        POST("/user", (routeContext) -> {
-            User entity = routeContext.createEntityFromParameters(User.class);
-            if (entity.getCreatedDate() == null) {
-                entity.setCreatedDate(new Date());
-            }
-            // for now, allow only edit user
-            if ((entity.getId() != null) && (entity.getId() == 1)) {
-                application.getUserService().save(entity);
-            }
-
-            routeContext.redirect("/admin");
-        }).named("postUser");
+        // TODO (or a simple "addRouteGroup()")
+        application.addRouteGroup(new UserRoutes());
     }
 
     private void addUploadRoutes() {
@@ -392,6 +279,150 @@ public class AdminRoutes extends RouteGroup {
         }
 
         return user;
+    }
+
+    class CustomerRoutes extends RouteGroup {
+
+        public CustomerRoutes() {
+            super(AdminRoutes.this, "/customers");
+
+            GET("/", (routeContext) -> {
+//            routeContext.setLocal("companyService", companyService); // bug in pebble
+                // workaround bug
+                List<CustomerDto> customers = new ArrayList<>();
+                for (Customer customer : application.getCustomerService().findAll()) {
+                    Company company = application.getCompanyService().findById(customer.getCompanyId());
+                    customers.add(new CustomerDto(customer, company));
+                }
+                routeContext.setLocal("customers", customers);
+                routeContext.render("admin/customers");
+            }).named("getCustomers");
+
+            GET("/{id}", (routeContext) -> {
+                long id = routeContext.getParameter("id").toLong();
+                Customer customer;
+                if (id > 0) {
+                    customer = application.getCustomerService().findById(id);
+                } else {
+                    customer = new Customer();
+                }
+                routeContext.setLocal(PippoApplication.CUSTOMER, customer);
+
+                Map<String, Object> parameters = new HashMap<>();
+                if (id > 0) {
+                    parameters.put("id", id);
+                }
+                Router router = application.getRouter();
+                routeContext.setLocal("saveUrl", router.uriFor("postCustomer", parameters));
+                routeContext.setLocal("backUrl", router.uriFor("getCustomers", new HashMap<>()));
+                routeContext.setLocal("companies", application.getCompanyService().findAll());
+
+                routeContext.render("admin/customer");
+            });
+
+            POST("/", (routeContext) -> {
+                Customer entity = routeContext.createEntityFromParameters(Customer.class);
+                if (entity.getCreatedDate() == null) {
+                    entity.setCreatedDate(new Date());
+                }
+                application.getCustomerService().save(entity);
+
+                routeContext.getResponse().header("X-IC-Transition", "none");
+//            routeContext.setLocal("customers", customerService.findAll());
+                // workaround bug
+                List<CustomerDto> customers = new ArrayList<>();
+                for (Customer customer : application.getCustomerService().findAll()) {
+                    Company company = application.getCompanyService().findById(customer.getCompanyId());
+                    customers.add(new CustomerDto(customer, company));
+                }
+                routeContext.setLocal("customers", customers);
+
+                routeContext.redirect("getCustomers", new HashMap<>());
+            }).named("postCustomer");
+
+            DELETE("/{id}", (routeContext) -> {
+                long id = routeContext.getParameter("id").toLong();
+                application.getCustomerService().deleteById(id);
+
+                routeContext.getResponse().header("X-IC-Remove", "true").commit();
+            });
+        }
+
+    }
+
+    class CompanyRoutes extends RouteGroup {
+
+        public CompanyRoutes() {
+            super(AdminRoutes.this, "/companies");
+
+            GET("/", (routeContext) -> {
+                routeContext.setLocal("companies", application.getCompanyService().findAll());
+                routeContext.render("admin/companies");
+            }).named("getCompanies");
+
+            GET("/{id}", (routeContext) -> {
+                long id = routeContext.getParameter("id").toLong();
+                Company company = (id > 0) ? application.getCompanyService().findById(id) : new Company();
+                routeContext.setLocal(PippoApplication.COMPANY, company);
+
+                Map<String, Object> parameters = new HashMap<>();
+                if (id > 0) {
+                    parameters.put("id", id);
+                }
+                Router router = application.getRouter();
+                routeContext.setLocal("saveUrl", router.uriFor("postCompany", parameters));
+                routeContext.setLocal("backUrl", router.uriFor("getCompanies", new HashMap<>()));
+
+                routeContext.render("admin/company");
+            });
+
+            POST("/", (routeContext) -> {
+                Company entity = routeContext.createEntityFromParameters(Company.class);
+                if (entity.getCreatedDate() == null) {
+                    entity.setCreatedDate(new Date());
+                }
+                application.getCompanyService().save(entity);
+
+                routeContext.redirect("getCompanies", new HashMap<>());
+            }).named("postCompany");
+        }
+
+    }
+
+    class UserRoutes extends RouteGroup {
+
+        public UserRoutes() {
+            super(AdminRoutes.this, "/users");
+
+            GET("/{id}", (routeContext) -> {
+                long id = routeContext.getParameter("id").toLong();
+                User user = (id > 0) ? application.getUserService().findById(id) : new User();
+                routeContext.setLocal(PippoApplication.USER, user);
+
+                Map<String, Object> parameters = new HashMap<>();
+                if (id > 0) {
+                    parameters.put("id", id);
+                }
+                routeContext.setLocal("saveUrl", application.getRouter().uriFor("postUser", parameters));
+                routeContext.setLocal("backUrl", "/admin");
+
+                routeContext.render("admin/user");
+            });
+
+            POST("/", (routeContext) -> {
+                User entity = routeContext.createEntityFromParameters(User.class);
+                if (entity.getCreatedDate() == null) {
+                    entity.setCreatedDate(new Date());
+                }
+                // for now, allow only edit user
+                if ((entity.getId() != null) && (entity.getId() == 1)) {
+                    application.getUserService().save(entity);
+                }
+
+                routeContext.redirect("/admin");
+            }).named("postUser");
+        }
+
     }
 
 }

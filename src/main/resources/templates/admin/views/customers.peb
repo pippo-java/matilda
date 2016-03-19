@@ -50,11 +50,11 @@
                 #}
                 <td style="text-align: right;">
                     <div class="btn-group btn-group-xs">
-                        <a class="btn btn-default" href="{{ appPath }}/admin/customer/{{ dto.customer.id }}"><i class="fa fa-pencil"></i> {{ i18n('edit') }}</a>
+                        <a class="btn btn-default" href="{{ appPath }}/admin/customers/{{ dto.customer.id }}"><i class="fa fa-pencil"></i> {{ i18n('edit') }}</a>
                         {#
-                        <a class="btn btn-default" ic-delete-from="{{ appPath }}/admin/customer/{{ dto.customer.id }}" ic-confirm="{{ i18n('confirm.message') }}" ic-target="closest tr"><i class="fa fa-trash"></i> {{ i18n('delete') }}</a>
+                        <a class="btn btn-default" ic-delete-from="{{ appPath }}/admin/customers/{{ dto.customer.id }}" ic-confirm="{{ i18n('confirm.message') }}" ic-target="closest tr"><i class="fa fa-trash"></i> {{ i18n('delete') }}</a>
                         #}
-                        <a class="btn btn-default delete-row-link" ic-delete-from="{{ appPath }}/admin/customer/{{ dto.customer.id }}" ic-target="closest tr" ic-trigger-on="deleteRowConfirm"><i class="fa fa-trash"></i> {{ i18n('delete') }}</a>
+                        <a class="btn btn-default delete-row-link" ic-delete-from="{{ appPath }}/admin/customers/{{ dto.customer.id }}" ic-target="closest tr" ic-trigger-on="deleteRowConfirm"><i class="fa fa-trash"></i> {{ i18n('delete') }}</a>
                     </div>
                 </td>
             </tr>

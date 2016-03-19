@@ -4,7 +4,7 @@
 
 {% block main %}
     <div class="buttons pull-right">
-        <a class="btn btn-primary" href="{{ appPath }}/admin/company/0"><i class="fa fa-plus"></i> {{ i18n('add') }}</a>
+        <a class="btn btn-primary" href="{{ appPath }}/admin/companies/0"><i class="fa fa-plus"></i> {{ i18n('add') }}</a>
     </div>
 
     {# Companies #}

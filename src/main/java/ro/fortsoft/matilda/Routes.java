@@ -50,10 +50,7 @@ public class Routes extends RouteGroup {
 
         this.application = application;
 
-        addRoutes();
-    }
-
-    private void addRoutes() {
+        // ROUTES
         addSecurityRoutes();
         addUploadRoutes();
         addStorageRoutes();
