@@ -32,8 +32,8 @@ import java.util.Map;
 public class ExtendedPebbleTemplateEngine extends PebbleTemplateEngine {
 
     @Override
-    protected void init(Application application, PebbleEngine engine) {
-        engine.addExtension(new AbstractExtension() {
+    protected void init(Application application, PebbleEngine.Builder builder) {
+        builder.extension(new AbstractExtension() {
 
             @Override
             public Map<String, Filter> getFilters() {
