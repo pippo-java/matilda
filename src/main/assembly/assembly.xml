@@ -12,6 +12,7 @@
             <useProjectArtifact>false</useProjectArtifact>
             <scope>runtime</scope>
 			<outputDirectory>lib</outputDirectory>
+            <outputFileNameMapping>${artifact.artifactId}-${artifact.baseVersion}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
 			<includes>
 				<include>*:jar:*</include>
 			</includes>

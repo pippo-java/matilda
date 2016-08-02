@@ -303,6 +303,7 @@
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
                                     <mainClass>${main.class}</mainClass>
+                                    <useUniqueVersions>false</useUniqueVersions>
                                 </manifest>
                             </archive>
                         </configuration>
