@@ -23,6 +23,6 @@ import ro.fortsoft.matilda.domain.Customer;
  */
 public interface CustomerService extends EntityService<Customer> {
 
-    public Customer findByEmail(String email);
+    Customer findByEmail(String email);
 
 }

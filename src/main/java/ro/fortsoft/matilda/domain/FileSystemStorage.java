@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ro.fortsoft.matilda;
+package ro.fortsoft.matilda.domain;
 
-import ro.fortsoft.matilda.domain.Document;
 import ro.fortsoft.matilda.util.IoUtils;
 
 import java.io.BufferedInputStream;

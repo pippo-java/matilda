@@ -23,6 +23,6 @@ import ro.fortsoft.matilda.domain.Company;
  */
 public interface CompanyService extends EntityService<Company> {
 
-    public Company findByFiscalCode(String fiscalCode);
+    Company findByFiscalCode(String fiscalCode);
 
 }

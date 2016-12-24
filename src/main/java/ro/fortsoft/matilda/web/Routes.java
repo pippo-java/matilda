@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ro.fortsoft.matilda;
+package ro.fortsoft.matilda.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ro.fortsoft.matilda.MatildaApplication;
 import ro.fortsoft.matilda.domain.Customer;
 import ro.fortsoft.matilda.domain.Document;
 import ro.fortsoft.matilda.util.NetUtils;
@@ -42,10 +43,10 @@ public class Routes extends RouteGroup {
 
     private static final Logger log = LoggerFactory.getLogger(Routes.class);
 
-    private final PippoApplication application;
+    private final MatildaApplication application;
     private Map<String, Integer> failedLoginByHost = new ConcurrentHashMap<>();
 
-    public Routes(PippoApplication application) {
+    public Routes(MatildaApplication application) {
         super("/");
 
         this.application = application;
@@ -57,7 +58,7 @@ public class Routes extends RouteGroup {
     }
 
     private void addSecurityRoutes() {
-        GET("/login", (routeContext) -> {
+        GET("/login", routeContext -> {
             boolean captcha = needCaptcha(routeContext.getRequest());
             routeContext.setLocal("captcha", captcha);
             if (captcha) {
@@ -67,7 +68,7 @@ public class Routes extends RouteGroup {
             routeContext.render("login");
         }).named("login");
 
-        POST("/login", (routeContext) -> {
+        POST("/login", routeContext -> {
             String email = routeContext.getParameter("email").toString();
             String password = routeContext.getParameter("password").toString();
 
@@ -93,12 +94,12 @@ public class Routes extends RouteGroup {
                 resetFailedLogin(routeContext.getRequest());
                 log.debug("Authenticated customer {}", customer);
 
-                routeContext.setSession(PippoApplication.CUSTOMER, customer);
+                routeContext.setSession(MatildaApplication.CUSTOMER, customer);
                 routeContext.redirect("/");
             } else {
                 incrementFailedLogin(routeContext.getRequest());
 
-                String errorMessage = null;
+                String errorMessage;
                 if (captcha && !captchaResult) {
                     errorMessage = getMessages().get("login.captcha.invalid", routeContext);
                 } else {
@@ -110,14 +111,14 @@ public class Routes extends RouteGroup {
             }
         });
 
-        GET("/logout", (routeContext) -> {
+        GET("/logout", routeContext -> {
             routeContext.resetSession();
             routeContext.redirect("/login");
         }).named("logout");
     }
 
     private void addUploadRoutes() {
-        GET("/upload", (routeContext) -> {
+        GET("/upload", routeContext -> {
             Calendar calendar = Calendar.getInstance();
 //            YearMonth date = getDate(routeContext);
             YearMonth date = YearMonth.now().minusMonths(1);
@@ -131,14 +132,14 @@ public class Routes extends RouteGroup {
             List<Document> documents = application.getDocumentService().findByExample(example);
 
             routeContext.setLocal("documents", documents);
-            routeContext.setLocal(PippoApplication.DATE, date.format(PippoApplication.DATE_TIME_FORMATTER));
+            routeContext.setLocal(MatildaApplication.DATE, date.format(MatildaApplication.DATE_TIME_FORMATTER));
             routeContext.setLocal("dayOfMonth", calendar.get(Calendar.DAY_OF_MONTH));
             routeContext.setLocal("lockDate", Boolean.TRUE);
 
             routeContext.render("upload");
         }).named("upload");
 
-        POST("/upload", (routeContext) -> {
+        POST("/upload", routeContext -> {
             FileItem file = routeContext.getRequest().getFile("files");
             long companyId = application.getCustomer(routeContext).getCompanyId();
             YearMonth date = application.getDate(routeContext);
@@ -152,7 +153,7 @@ public class Routes extends RouteGroup {
     }
 
     private void addStorageRoutes() {
-        GET("/storage", (routeContext) -> {
+        GET("/storage", routeContext -> {
             long companyId = application.getCustomer(routeContext).getCompanyId();
             YearMonth date = application.getDate(routeContext);
 
@@ -165,12 +166,12 @@ public class Routes extends RouteGroup {
             List<Document> documents = application.getDocumentService().findByExample(example);
 
             routeContext.setLocal("documents", documents);
-            routeContext.setLocal("date", date.format(PippoApplication.DATE_TIME_FORMATTER));
+            routeContext.setLocal("date", date.format(MatildaApplication.DATE_TIME_FORMATTER));
 
             routeContext.render("storage");
         }).named("storage");
 
-        GET("/download", (routeContext) -> {
+        GET("/download", routeContext -> {
             long companyId = application.getCustomer(routeContext).getCompanyId();
             YearMonth date = application.getDate(routeContext);
 

@@ -141,11 +141,11 @@ public class WhiteList {
                 endBlocks[3] = Long.parseLong(entry.substring(indices[6] + 1, entry.length()));
 
                 /*
-                    IANA-reserved private IPv4 network ranges
-                                                        Start	    End	            No. of addresses
-                    24-bit block (/8 prefix, 1 × A) 	10.0.0.0	10.255.255.255	16777216
-                    20-bit block (/12 prefix, 16 × B)	172.16.0.0	172.31.255.255	1048576
-                    16-bit block (/16 prefix, 256 × C)	192.168.0.0	192.168.255.255	65536
+                IANA-reserved private IPv4 network ranges
+                                                    Start	    End	            No. of addresses
+                24-bit block (/8 prefix, 1 × A) 	10.0.0.0	10.255.255.255	16777216
+                20-bit block (/12 prefix, 16 × B)	172.16.0.0	172.31.255.255	1048576
+                16-bit block (/16 prefix, 256 × C)	192.168.0.0	192.168.255.255	65536
                 */
                 long startValue = (startBlocks[0] * 16777216) + (startBlocks[1] * 65536) + (startBlocks[2] * 256) + startBlocks[3];
                 long endValue = (endBlocks[0] * 16777216) + (endBlocks[1] * 65536) + (endBlocks[2] * 256) + endBlocks[3];

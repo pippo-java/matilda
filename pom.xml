@@ -35,9 +35,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <main.class>ro.fortsoft.matilda.PippoLauncher</main.class>
+        <main.class>ro.fortsoft.matilda.MatildaLauncher</main.class>
 
-        <pippo.version>0.9.0-SNAPSHOT</pippo.version>
+        <pippo.version>1.1.0-SNAPSHOT</pippo.version>
         <dada.version>0.1.1</dada.version>
         <slf4j.version>1.7.7</slf4j.version>
         <junit.version>4.12</junit.version>

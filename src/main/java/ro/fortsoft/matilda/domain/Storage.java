@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ro.fortsoft.matilda;
-
-import ro.fortsoft.matilda.domain.Document;
+package ro.fortsoft.matilda.domain;
 
 import java.io.InputStream;
 
@@ -24,10 +22,10 @@ import java.io.InputStream;
  */
 public interface Storage {
 
-    public long store(InputStream inputStream, Document document);
+    long store(InputStream inputStream, Document document);
 
-    public long size(Document document);
+    long size(Document document);
 
-    public InputStream getStream(Document document);
+    InputStream getStream(Document document);
 
 }

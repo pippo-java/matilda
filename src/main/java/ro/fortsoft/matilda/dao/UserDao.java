@@ -23,6 +23,6 @@ import ro.fortsoft.matilda.domain.User;
  */
 public interface UserDao extends EntityDao<User> {
 
-    public User findByUsername(String username);
+    User findByUsername(String username);
 
 }

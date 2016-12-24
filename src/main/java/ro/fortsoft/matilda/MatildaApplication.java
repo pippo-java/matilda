@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import ro.fortsoft.matilda.domain.Company;
 import ro.fortsoft.matilda.domain.Customer;
 import ro.fortsoft.matilda.domain.Document;
+import ro.fortsoft.matilda.domain.FileSystemStorage;
+import ro.fortsoft.matilda.domain.Storage;
 import ro.fortsoft.matilda.service.CompanyService;
 import ro.fortsoft.matilda.service.CustomerService;
 import ro.fortsoft.matilda.service.DocumentService;
@@ -27,6 +29,9 @@ import ro.fortsoft.matilda.service.ServiceFactory;
 import ro.fortsoft.matilda.service.UserService;
 import ro.fortsoft.matilda.util.DbUtils;
 import ro.fortsoft.matilda.util.ZipUtils;
+import ro.fortsoft.matilda.web.AdminRoutes;
+import ro.fortsoft.matilda.web.ExtendedPebbleTemplateEngine;
+import ro.fortsoft.matilda.web.Routes;
 import ro.pippo.core.Application;
 import ro.pippo.core.FileItem;
 import ro.pippo.core.PippoRuntimeException;
@@ -48,11 +53,11 @@ import java.util.Objects;
 /**
  * A simple Pippo application.
  *
- * @see ro.fortsoft.matilda.PippoLauncher#main(String[])
+ * @see MatildaLauncher#main(String[])
  */
-public class PippoApplication extends Application {
+public class MatildaApplication extends Application {
 
-    private static final Logger log = LoggerFactory.getLogger(PippoApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(MatildaApplication.class);
 
     public static final String DATE = "date";
     public static final String USER = "user";
@@ -115,7 +120,7 @@ public class PippoApplication extends Application {
 
     private void addBeforeFilters() {
         // authentication customer filter
-        ALL(securePaths(), (routeContext) -> {
+        ALL(securePaths(), routeContext -> {
             if (routeContext.getSession(CUSTOMER) == null) {
                 routeContext.redirect("/login");
             } else {
@@ -124,7 +129,7 @@ public class PippoApplication extends Application {
         }).named("secureCustomerFilter");
 
         // make "customer" and "company" available for all templates
-        GET(securePaths(), (routeContext) -> {
+        GET(securePaths(), routeContext -> {
             routeContext.setLocal(CUSTOMER, getCustomer(routeContext));
             routeContext.setLocal(COMPANY, getCompany(routeContext));
 
@@ -132,7 +137,7 @@ public class PippoApplication extends Application {
         }).named("customerCompanyFilter");
 
         // debtor filter
-        GET(securePaths(), (routeContext) -> {
+        GET(securePaths(), routeContext -> {
             Customer customer = getCustomer(routeContext);
             if (customer.isDebtor()) {
                 routeContext.render("debtor");
@@ -272,9 +277,7 @@ public class PippoApplication extends Application {
     }
 
     private void addAfterFilters() {
-        ALL("/.*", (routeContext) -> {
-            DbUtils.closeDb();
-        }).runAsFinally();
+        ALL("/.*", routeContext -> DbUtils.closeDb()).runAsFinally();
     }
 
     private String securePaths() {

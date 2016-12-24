@@ -23,6 +23,6 @@ import ro.fortsoft.matilda.domain.Customer;
  */
 public interface CustomerDao extends EntityDao<Customer> {
 
-    public Customer findByEmail(String email);
+    Customer findByEmail(String email);
 
 }

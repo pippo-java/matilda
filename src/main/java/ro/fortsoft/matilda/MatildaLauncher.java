@@ -20,10 +20,10 @@ import ro.pippo.core.Pippo;
 /**
  * Run application from here.
  */
-public class PippoLauncher {
+public class MatildaLauncher {
 
     public static void main(String[] args) {
-        Pippo pippo = new Pippo(new PippoApplication());
+        Pippo pippo = new Pippo(new MatildaApplication());
         pippo.start();
     }
 
