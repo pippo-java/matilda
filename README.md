@@ -34,13 +34,13 @@ The application comes with support for `English` and `Romanian` languages.
 
 Screenshots
 -------------------
-####Upload Screen
+#### Upload Screen
 ![Upload](screenshots/upload-preview.png?raw=true "Upload")
 
-####Download Screen
+#### Download Screen
 ![Download](screenshots/download.png?raw=true "Download")
 
-####Edit Screen
+#### Edit Screen
 ![Edit](screenshots/admin-edit-customers.png?raw=true "Edit")
 
 All the screenshots are available in the [screenshots](screenshots) folder.
