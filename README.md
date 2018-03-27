@@ -1,16 +1,16 @@
 Web Accounting - Pippo Demo 
 =====================
-[![Travis CI Build Status](https://travis-ci.org/decebals/matilda.png)](https://travis-ci.org/decebals/matilda)
+[![Travis CI Build Status](https://travis-ci.org/pippo-java/matilda.png)](https://travis-ci.org/pippo-java/matilda)
 
 This project is a real life application built with [Pippo](www.pippo.ro) framework.
 The goal of this project is to show how a real web application built with Pippo looks like.
 
-Before studying this project please read about Pippo on www.pippo.ro and see the multiple Pippo-Demo projects (fine granularity) on https://github.com/decebals/pippo-demo.
+Before studying this project please read about Pippo on www.pippo.ro and see the multiple Pippo-Demo projects (fine granularity) on https://github.com/pippo-java/pippo-demo.
 
 Libraries used
 -------------------
 This project is built using several libraries:
-- [Pippo](https://github.com/decebals/pippo), a micro Java web framework
+- [Pippo](https://github.com/pippo-java/pippo), a micro Java web framework
 - [Dada](https://github.com/decebals/dada), a tiny generic dao in Java used to access data stored in a H2 database
 - [Pebble](https://github.com/mbosecke/pebble), a Java templating engine
 - [Undertow](https://github.com/undertow-io/undertow), high performance non-blocking webserver
@@ -63,7 +63,7 @@ Requirements:
 - [Apache Maven 3](http://maven.apache.org/) (test with `mvn -version`)
 
 Steps:
-- create a local clone of this repository (with `git clone https://github.com/decebals/matilda.git`)
+- create a local clone of this repository (with `git clone https://github.com/pippo-java/matilda.git`)
 - go to project's folder (with `cd matilda`)
 - build the artifacts (with `mvn clean package`)
 
